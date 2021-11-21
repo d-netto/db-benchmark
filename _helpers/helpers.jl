@@ -4,7 +4,13 @@ using Pkg;
 # from https://github.com/JuliaLang/Pkg.jl/issues/793
 function getpkgmeta(name::AbstractString)
     fname = joinpath(dirname(Base.active_project()), "Manifest.toml")
-    Pkg.TOML.parse(read(fname, String))[name][1]
+    toml_parsed = Pkg.TOML.parse(read(fname, String))
+    # XXX
+    if VERSION == v"1.6.1"
+      return toml_parsed[name][1]
+    else
+      return toml_parsed["deps"][name][1]
+    end
 end;
 
 function write_log(run, task, data, in_rows, question, out_rows, out_cols, solution, version, git, fun, time_sec, mem_gb, cache, chk, chk_time_sec, on_disk)
