@@ -1,9 +1,9 @@
 using BenchmarkTools
 
-const NUM_TRAJECTORIES = 10000
+const NUM_TRAJECTORIES = 50000
 const MAX_SIZE = 100000
 
-stat = @timed for i in 1:NUM_TRAJECTORIES
+stat = @timed Threads.@threads for i in 1:NUM_TRAJECTORIES
 	sum(randn(MAX_SIZE))
 end
 

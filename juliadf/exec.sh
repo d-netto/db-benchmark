@@ -1,12 +1,13 @@
 #!/bin/bash
 
-num_threads=$1
+min_num_threads=$1
+max_num_threads=$2
+echo "MIN_THREADS=$min_num_threads"
+echo "MAX_THREADS=$max_num_threads"
 
-# execute benchmark script
-echo "N_threads Benchmark_id GC_time[s](avg) GC_time[s](sd) Total_time[s](avg) Total_time[s](sd) GC_fraction(avg) GC_fraction[s](sd)" &&
-if [ $num_threads -lt 4 ] 
-then
-  taskset -c 1-3 julia -t $num_threads ./juliadf/groupby-juliadf.jl
-else
-  julia -t $num_threads ./juliadf/groupby-juliadf.jl
-fi
+echo "N_threads Benchmark_id GC_time[s](avg) GC_time[s](sd) Total_time[s](avg) Total_time[s](sd) GC_fraction(avg) GC_fraction(sd)"
+for ((i = $min_num_threads; i <= $max_num_threads; i++))
+do
+   ../julia/julia -t$i ./juliadf/groupby-juliadf.jl
+   echo "\a\a\a\a"
+done
