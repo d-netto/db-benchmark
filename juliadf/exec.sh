@@ -9,5 +9,5 @@ echo "N_threads Benchmark_id GC_time[s](avg) GC_time[s](sd) Total_time[s](avg) T
 for ((i = $min_num_threads; i <= $max_num_threads; i++))
 do
    ../julia/julia -t$i ./juliadf/groupby-juliadf.jl
-   echo "\a\a\a\a"
+   echo "--------"
 done
