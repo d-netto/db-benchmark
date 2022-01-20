@@ -8,9 +8,9 @@ using Printf;
 
 include("$(pwd())/_helpers/helpers.jl");
 
-data_name = "G1_1e7_1e2_0_0";
+db_file = "G1_1e7_1e2_0_0";
 
-src_grp = string("data/", data_name, ".csv");
+src_grp = string("data/", db_file, ".csv");
 x = CSV.read(src_grp, DataFrame);
 
 struct BenchTask{N, C}
@@ -41,9 +41,9 @@ const N_THREADS = Threads.nthreads()
 const WARMUP_OUTER_ROUNDS = 1
 
 const MIN_OUTER_ROUNDS = 5
-const INNER_ROUNDS = 2
+const INNER_ROUNDS = 10
 
-const SD_MEAN_TOL = 0.45
+const SD_MEAN_TOL = 0.35
 
 for (bench_num, bt) in enumerate(bench_tasks_vec)
 
